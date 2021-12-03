@@ -1,20 +1,26 @@
 <template>
   <div>
-    <el-form rules="rules" ref="" :model="LoginForm" class="loginContainer">
+    <el-form
+      :rules="rules"
+      ref="loginForm"
+      :model="LoginForm"
+      class="loginContainer"
+    >
       <h3 class="loginTitle">系统登录</h3>
-      <el-form-item>
+      <el-form-item prop="username">
         <el-input
           v-model="LoginForm.username"
           placeholder="请输入用户名"
         ></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <el-input
           v-model="LoginForm.password"
           placeholder="请输入密码"
         ></el-input>
       </el-form-item>
-      <el-form-item>
+
+      <el-form-item prop="code">
         <el-input
           type="text"
           v-model="LoginForm.code"
@@ -23,9 +29,8 @@
         ></el-input>
         <img :src="captchaUrl" />
       </el-form-item>
-
       <el-checkbox v-model="checked" class="loginRember">记住我</el-checkbox>
-      <el-button type="primary" style="width: 100%" @click="submitLogin" class="sfsdf"
+      <el-button type="primary" style="width: 100%" @click="submitLogin"
         >登录</el-button
       >
     </el-form>
@@ -34,33 +39,41 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
-      captchaUrl: '',
+      captchaUrl: "",
       LoginForm: {
-        username: 'admin',
-        password: '123',
-        code: '',
+        username: "admin",
+        password: "123",
+        code: "",
       },
       checked: true,
       rules: {
         username: [
-          {
-            required: true,
-            message: '请输入用户名',
-            trigger: 'blur',
-          },
+          { required: true, message: "请输入用户名", trigger: "blur" },
         ],
+        password: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+        ],
+        code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
       },
-    }
+    };
   },
   methods: {
     submitLogin() {
-      alert(111)
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          alert("submit!");
+          
+        } else {
+          this.$message.error("请输入所有字段");
+          return false;
+        }
+      });
     },
   },
-}
+};
 </script>
 
 <style>
@@ -79,11 +92,9 @@ export default {
   margin: 0px auto 40px auto;
   text-align: center;
 }
+
 .loginRember {
   text-align: left;
   margin: 0px 0px 15px 0px;
-}
-.asd {
-  scroll-behavior: auto;
 }
 </style>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body></body>
+<script>
+  export default {
+    name: 'Login',
+    data() {
+      return {
+        captchaUrl: '',
+        LoginForm: {
+          username: 'admin',
+          password: '123',
+          code: '',
+        },
+        checked: true,
+        rules: {
+          username: [
+            { required: true, message: '     请输入用户名', trigger: 'blur' },
+          ],
+          password: [
+            { required: true, message: '请输入用户名', trigger: 'blur' },
+          ],
+          code: [
+            { required: true, message: '请输入验证码', trigger: 'blur' },
+          ],
+        },
+      }
+    },
+    methods: {
+      submitLogin() {
+        alert(111)
+      },
+    },
+  }
+</script>
+
+</html>
